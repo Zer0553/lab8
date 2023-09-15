@@ -55,15 +55,20 @@ windowEntry.title('Lab 8')
 button = Button(windowEntry, text='Продолжить', command=button1)
 txt = Entry(windowEntry, width=10)
 lbl = Label(windowEntry, width=45, text='Размер матрицы: ')
-lbl2 = Label(windowEntry, width=60, height=20, text='')
+lbl2 = Label(windowEntry, text='')
+info = Label(windowEntry, text='Дана квадратная матрица. Сформировать все возможные варианты данной матрицы путем'
+                               ' \n перестановки строк и столбцов, в которых диагональный элемент равен нулю.'
+                               ' \n + сумма элементов сторки с диагональным элементом равным нулю не должна быть больше размера матрицы уноженного на 5'
+                               ' \n + переставляем только четные столбцы и строки')
 
 lbl.place(x=30, y=150)
 txt.place(x=100, y=200)
 button.place(x=100, y=250)
 lbl2.place(x=80, y=300)
+info.place(x=30, y=50)
 
 txt.focus()
-windowEntry.geometry('800x600')
+windowEntry.geometry('900x600')
 windowEntry.mainloop()
 
 def start():
@@ -83,5 +88,4 @@ def start():
     txt.focus()
     windowEntry.geometry('800x600')
     windowEntry.mainloop()
-
 
