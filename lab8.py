@@ -12,9 +12,11 @@ def number_check(n):
             if k > 0:
                 return k
             else:
-                return 'Введенное число отрицательное.'
+                return 'Должно быть положиельное число.'
 
         except ValueError:
+            if n == 'test':
+                return 'test'
             return 'Введенное значение не является числом.'
 
 
@@ -100,6 +102,17 @@ def button1():
     if txt.get('2.0') == '':
         answer = start(n)
         if type(answer) == str:
+            if answer == 'test':
+                m = [[1, 0, 1, 0, 1],
+                        [1, 0, 1, 0, 1],
+                        [1, 0, 0, 0, 1],
+                        [1, 0, 1, 0, 1],
+                        [1, 0, 1, 0, 1]]
+                txt.insert('1.0', "Начальная матрица: \n")
+                txt.insert(END, print_matrix(m))
+                lbl.configure(text='Введите желаемый тип перебора массива (rec, iter):')
+                entr.delete(0, END)
+                matrix = m
             lbl.configure(text=answer)
         else:
             m = answer
@@ -108,43 +121,54 @@ def button1():
             lbl.configure(text='Введите желаемый тип перебора массива (rec, iter):')
             entr.delete(0, END)
             matrix = m
-            print(m)
     else:
-        answer = entr.get()
-        windowEntry.destroy()
-        if answer == 'iter':
-            answer = F_iter(matrix, len(matrix[0]))
-            windowAnswer = Tk()
-            windowAnswer.title('Answer')
-            txt_answ = Text(windowAnswer, width=100, height=50)
-            scrolmat = Scrollbar(windowAnswer, orient="vertical", command=txt_answ.yview)
-            txt_answ.insert('1.0', 'Кол-во вариантов ' + str(answer[0]) + '\n')
-            for i in range(answer[0]):
-                txt_answ.insert(END, str(print_matrix(answer[1][i])) + '\n')
-                txt_answ.insert(END, '\n')
-            scrolmat.place(x=781, y=0, height=800)
-            txt_answ.grid()
-            txt_answ["yscrollcommand"] = scrolmat.set
-            windowAnswer.geometry('800x800')
-            windowAnswer.mainloop()
-        elif answer == 'rec':
-            answer = F_iter(matrix, len(matrix[0]))
-            windowAnswer = Tk()
-            windowAnswer.title('Answer')
-            txt_answ = Text(windowAnswer, width=100, height=50)
-            scrolmat = Scrollbar(windowAnswer, orient="vertical", command=txt_answ.yview)
-            txt_answ.insert('1.0', 'Кол-во вариантов ' + str(answer[0]) + '\n')
-            for i in range(answer[0]):
-                txt_answ.insert(END, str(print_matrix(answer[1][i])) + '\n')
-                txt_answ.insert(END, '\n')
-            scrolmat.place(x=781, y=0, height=800)
-            txt_answ.grid()
-            txt_answ["yscrollcommand"] = scrolmat.set
-            windowAnswer.geometry('800x800')
-            windowAnswer.mainloop()
-        else:
+        try:
+            answer = entr.get()
+            if answer == 'iter':
+                windowEntry.destroy()
+                answer = F_iter(matrix, len(matrix[0]))
+                windowAnswer = Tk()
+                windowAnswer.title('Answer')
+                txt_answ = Text(windowAnswer, width=100, height=50)
+                scrolmat = Scrollbar(windowAnswer, orient="vertical", command=txt_answ.yview)
+                if answer[0] > 0:
+                    txt_answ.insert('1.0', 'Кол-во вариантов ' + str(answer[0]) + '\n')
+                    for i in range(answer[0]):
+                        txt_answ.insert(END, str(print_matrix(answer[1][i])) + '\n')
+                        txt_answ.insert(END, '\n')
+                    scrolmat.place(x=781, y=0, height=800)
+                    txt_answ.grid()
+                    txt_answ["yscrollcommand"] = scrolmat.set
+                    windowAnswer.geometry('800x800')
+                else:
+                    txt_answ.insert('1.0', 'Матрица не подошла под условие ')
+                    txt_answ.grid()
+                    txt_answ["yscrollcommand"] = scrolmat.set
+                    windowAnswer.geometry('800x800')
+                windowAnswer.mainloop()
+            elif answer == 'rec':
+                answer = F_iter(matrix, len(matrix[0]))
+                windowAnswer = Tk()
+                windowAnswer.title('Answer')
+                txt_answ = Text(windowAnswer, width=100, height=50)
+                scrolmat = Scrollbar(windowAnswer, orient="vertical", command=txt_answ.yview)
+                if answer[0] > 0:
+                    txt_answ.insert('1.0', 'Кол-во вариантов ' + str(answer[0]) + '\n')
+                    for i in range(answer[0]):
+                        txt_answ.insert(END, str(print_matrix(answer[1][i])) + '\n')
+                        txt_answ.insert(END, '\n')
+                    scrolmat.place(x=781, y=0, height=800)
+                    txt_answ.grid()
+                    txt_answ["yscrollcommand"] = scrolmat.set
+                    windowAnswer.geometry('800x800')
+                else:
+                    txt_answ.insert('1.0', 'Матрица не подошла под условие ')
+                    txt_answ.grid()
+                    txt_answ["yscrollcommand"] = scrolmat.set
+                    windowAnswer.geometry('800x800')
+                windowAnswer.mainloop()
+        except:
             lbl.configure(text='Введите rec для рекурсивного перебора, iter для итеративного')
-
 
 windowEntry = Tk()
 windowEntry.title('Lab 8')
